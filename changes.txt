@@ -1,0 +1,8 @@
+2024.07.30:
+    Backend:
+        -Könyv séma létrehozása
+        -Könyv controller létrehozása, végpontok tesztelve,
+        adatbázisból lekérdezés, új könyv létrehozása, módosítása, stb
+    Frontend:
+        -Bootstrap telepítve & importálva
+        -Navbar component és Home.js page létrehozva
