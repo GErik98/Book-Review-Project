@@ -16,8 +16,8 @@ app.use((req, res, next) => {
 })
 
 // routes
-app.use('/api/books', books)
-app.use('/api/users', users)
+app.use('/api/books/', books)
+app.use('/api/users/', users)
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI)

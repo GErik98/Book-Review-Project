@@ -3,11 +3,32 @@ const mongoose = require('mongoose')
 
 // create a new book
 const newBook = async (req, res) => {
-    const {title, author, description, avarageRating} = req.body
+    const {title, author, description, averageRating} = req.body
 
-    // add doc to db
+    let emptyFields = []
+
+    if(!title) {
+        emptyFields.push('title')
+    }
+    if(!author) {
+        emptyFields.push('author')
+    }
+    if(!description) {
+        emptyFields.push('description')
+    }
+    if(description.length < 10) {
+        emptyFields.push('descriptionMin')
+    }
+    if(emptyFields.length > 0) {
+        if(emptyFields.includes('descriptionMin') && emptyFields.length < 2){
+            return res.status(400).json({ error: 'Description should be at least 10 characters long', emptyFields})
+        }
+        else {
+            return res.status(400).json({ error: 'Please fill in all the fields', emptyFields})
+        } 
+    }
     try {
-        const book = await Book.create({title, author, description, avarageRating})
+        const book = await Book.create({title, author, description, averageRating})
         res.status(200).json(book)
     } catch (error) {
         res.status(400).json({error: error.message})
@@ -67,7 +88,7 @@ const deleteBook = async (req, res) => {
     if (!book) {
         return res.status(404).json({ message: 'Book not found' })
     }
-    res.status(200).json({ message: 'Book deleted successfully' })
+    res.status(200).json(book)
 }
 
 

@@ -6,3 +6,21 @@
     Frontend:
         -Bootstrap telepítve & importálva
         -Navbar component és Home.js page létrehozva
+
+2024.08.01:
+    Frontend:
+        -Részletes leírás könyvekről
+
+2024.08.02:
+    Backend:
+        -userController, userModel (séma), user.js létrehozva felhasználó kezeléshez,
+        -bookController: hibakezelés fejlesztése, javítva: törlésnél teszt üzenet helyett az elvárt jsont küldi vissza
+        -bookModel: javítva: leírásnak min 10 char hosszúságúnak kell lennie
+        -végpontok kijavítása (pl.: 'api/books/books/:id' helyett csak 'api/books/:id')
+    Frontend:
+        -alap styling hozzáadva
+        -BookDetails: részletes könyvinformációk kilistázása
+        -BookForm: űrlap könyvek hozzáadásához
+        -BookContext: dinamikus frissítéshez, nem kell újratölteni adatok frissítéséhez
+
+        

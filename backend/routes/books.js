@@ -10,19 +10,19 @@ const {
 const router = express.Router()
 
 // CREATE a new book
-router.post('/books', newBook)
+router.post('/', newBook)
 
 // GET all books
-router.get('/books', getBooks)
+router.get('/', getBooks)
 
 // GET a book
-router.get('/books/:id', getBook)
+router.get('/:id', getBook)
 
 // UPDATE a book
-router.patch('/books/:id', updateBook)
+router.patch('/:id', updateBook)
 
 // DELETE a book
-router.delete('/books/:id', deleteBook)
+router.delete('/:id', deleteBook)
 
 
 module.exports = router

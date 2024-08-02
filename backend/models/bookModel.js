@@ -5,8 +5,8 @@ const Schema = mongoose.Schema
 const bookSchema = new Schema({
     title: { type: String, required: true },
     author: { type: String, required: true },
-    description: String,
-    avarageRating: { type: Number, default: 0}
+    description: { type: String, minLength: [10, 'A leírásnkal legalább 10 karakter hosszúnak kell lennie.'] },
+    averageRating: { type: Number, default: 0}
 }, { timestamps: true})
 
 module.exports = mongoose.model('Book', bookSchema)
