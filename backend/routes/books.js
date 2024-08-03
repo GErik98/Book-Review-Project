@@ -6,8 +6,9 @@ const {
     updateBook,
     deleteBook
 } = require('../controllers/bookController')
-
+const requireAuth = require('../middleware/requireAuth')
 const router = express.Router()
+
 
 // CREATE a new book
 router.post('/', newBook)
@@ -19,10 +20,10 @@ router.get('/', getBooks)
 router.get('/:id', getBook)
 
 // UPDATE a book
-router.patch('/:id', updateBook)
+router.patch('/:id', requireAuth('admin'), updateBook)
 
 // DELETE a book
-router.delete('/:id', deleteBook)
+router.delete('/:id', requireAuth('admin'), deleteBook)
 
 
 module.exports = router

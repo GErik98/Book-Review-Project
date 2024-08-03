@@ -23,4 +23,17 @@
         -BookForm: űrlap könyvek hozzáadásához
         -BookContext: dinamikus frissítéshez, nem kell újratölteni adatok frissítéséhez
 
-        
+2024.08.03:
+    Backend:
+        -autentikáció és validáció hozzáadva
+        -reviewek sémája, controllere, route fájlja előkészítve
+        -login, signup, logout kidolgozva
+        -role-ok felvétele (user, admin)
+        -admin hozzáadva adatbázishoz (könyvek törlése, szerkeztése jog)
+    Frontend:
+        -Login, signup page
+        -navbarban logout gomb bejeltnkezett felhasználónál, login/signup ha nincs bejelentkezve senki
+        -AuthContext autentikáció kezeléséhez
+        -bookDetails törlés csak bejelentkezett adminnál jelenik meg
+        -bookDetails clickable kártyák kidolgozása elkezdve
+    
