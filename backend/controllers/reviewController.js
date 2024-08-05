@@ -1,5 +1,6 @@
 const Review = require('../models/reviewModel');
 const Book = require('../models/bookModel');
+const mongoose = require('mongoose');
 const User = require('../models/userModel');
 
 // Create a new review
@@ -7,30 +8,26 @@ const newReview = async (req, res) => {
   const { bookId } = req.params;
   const { userId, rating, comment } = req.body;
 
-  try {
-    const book = await Book.findById(bookId);
-    const user = await User.findById(userId);
-
-    if (!book || !user) {
-      return res.status(404).json({ error: 'Book or User not found' });
+    if (!mongoose.Types.ObjectId.isValid(bookId)) {
+      return res.status(400).json({ message: 'Invalid Book ID' });
     }
 
-    const review = new Review({
-      book: bookId,
-      user: userId,
-      rating,
-      comment
-    });
-
+  try {
+    const review = new Review({ rating, comment, user: userId, book: bookId });
     await review.save();
 
-    // Add the review to the book's reviews array
+    const book = await Book.findById(bookId);
     book.reviews.push(review._id);
+
+    const reviews = await Review.find({ book: bookId });
+    const averageRating = reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length;
+    book.averageRating = averageRating;
+
     await book.save();
 
     res.status(201).json(review);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -39,7 +36,7 @@ const getReviews = async (req, res) => {
   const { bookId } = req.params;
 
   try {
-    const reviews = await Review.find({ book: bookId }).populate('user', 'username');
+    const reviews = await Review.find({ book: bookId }).populate('user', 'email');
 
     res.status(200).json(reviews);
   } catch (error) {

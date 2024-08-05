@@ -43,19 +43,32 @@ const getBooks = async (req, res) => {
 }
 // get a book
 const getBook = async (req, res) => {
-    const { id } = req.params
+  const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ message: 'Invalid ID' })  // if the id is not a valid ObjectId, return an error message.
-    }
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ message: 'Invalid ID' });
+  }
 
+  try {
     const book = await Book.findById(id)
+      .populate({
+        path: 'reviews',
+        populate: {
+          path: 'user',
+          select: 'email'
+        }
+      })
+      .exec();
 
     if (!book) {
-        return res.status(404).json({ message: 'Book not found' })
+      return res.status(404).json({ message: 'Book not found' });
     }
-    res.status(200).json(book)
-}
+
+    res.status(200).json(book);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 // update a book
 const updateBook = async (req, res) => {
     const { id } = req.params

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useBooksContext } from '../hooks/useBooksContext'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap'
 
@@ -10,6 +11,7 @@ const BookForm = () => {
     const [description, setDescription] = useState('')
     const [error, setError] = useState(null)
     const [emptyFields, setEmptyFields] = useState([])
+    const { user } = useAuthContext();
 
 
     const handleSubmit = async (e) => {
@@ -80,11 +82,11 @@ const BookForm = () => {
               <Form.Control.Feedback type="invalid">Description is required</Form.Control.Feedback>
             )}
           </Form.Group>
-  
           <Button variant="primary" type="submit" className="w-100">
+          
             Add Book
+          
           </Button>
-  
           {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
         </Form>
       </Container>

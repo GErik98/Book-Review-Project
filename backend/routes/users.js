@@ -1,4 +1,5 @@
 const express = require('express')
+const requireAuth = require('../middleware/requireAuth')
 
 // controller functions
 const { signupUser, loginUser, getUser } = require('../controllers/userController')
@@ -11,6 +12,6 @@ router.post('/users', signupUser)
 router.post('/users/login', loginUser)
 
 // GET user data
-router.get('/users/me', getUser)
+router.get('/users/me', requireAuth(), getUser)
 
 module.exports = router

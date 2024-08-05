@@ -25,7 +25,7 @@ const CustomNavbar = () => {
           <Nav className="ms-auto">
             {user ? (
             <>
-              <Nav.Link>{user.email}</Nav.Link>
+              <Nav.Link as={Link} to="/user">{user.username}</Nav.Link>
               <Nav.Link onClick={handleClick}>Logout</Nav.Link>
             </>
             ) : (

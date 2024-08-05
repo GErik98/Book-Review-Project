@@ -1,12 +1,16 @@
 import { useEffect } from 'react'
 import { useBooksContext} from '../hooks/useBooksContext'
-import { Container, Row, Col } from 'react-bootstrap';
+import { useAuthContext } from '../hooks/useAuthContext';
+import { Container, Form, Button, Alert, Row, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 // components
 import BookDetails from '../components/BookDetails'
 import BookForm from '../components/BookForm'
 
 const Home = () => {
     const {books, dispatch} = useBooksContext()
+    const { user } = useAuthContext()
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -21,6 +25,10 @@ const Home = () => {
         fetchBooks()
     }, [dispatch])
 
+    const handleLoginClick = () => {
+      navigate('/login');
+    };
+
     return (
         <Container className="home mt-4">
         <Row>
@@ -32,7 +40,19 @@ const Home = () => {
             </div>
           </Col>
           <Col md={4}>
+          {user ? (
             <BookForm />
+          ) : (
+            <Alert variant="info" className="text-center">
+            <Row className="align-items-center">
+              <Col>Log in to add your favourite books!</Col>
+              <Col className="text-end">
+                <Button variant="button" onClick={handleLoginClick} className='btn btn-primary'>Log In</Button>
+              </Col>
+            </Row>
+          </Alert>
+          )
+          }
           </Col>
         </Row>
       </Container>
