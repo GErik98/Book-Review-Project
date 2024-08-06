@@ -93,7 +93,7 @@ const BookDetailPage = () => {
       const json = await response.json();
 
       if (response.ok) {
-        await fetchBook(); // Refetch the book data to update the state with the new review
+        await fetchBook();
         setRating(0);
         setComment('');
       } else {

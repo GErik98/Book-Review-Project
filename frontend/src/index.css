@@ -22,7 +22,7 @@ textarea.error {
   border: 1px solid var(--error);
 }
 
-span {
+/*span {
   position: absolute;
   top: 1em;
   right: 1em;
@@ -31,4 +31,4 @@ span {
   padding: 6px;
   border-radius: 50%;
   color: #000000;
-}
+}*/

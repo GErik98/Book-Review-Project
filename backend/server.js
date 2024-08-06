@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 const express = require('express')
+const { swaggerUi, swaggerSpec } = require('./swagger')
 const mongoose = require('mongoose')
 const books = require('./routes/books')
 const users = require('./routes/users')
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
 app.use('/api/books/', books)
 app.use('/api/', reviews)
 app.use('/api/users/', users)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI)

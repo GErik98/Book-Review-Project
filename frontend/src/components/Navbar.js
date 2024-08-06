@@ -1,18 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
-
-import { useLogout } from '../hooks/useLogout'
-import { useAuthContext } from '../hooks/useAuthContext'
+import { AuthContext } from '../context/AuthContext';  // Adjust path as necessary
+import { useLogout } from '../hooks/useLogout';  // Assuming you have this hook
 
 const CustomNavbar = () => {
-  const { logout } = useLogout()
-  const { user } = useAuthContext()
+  const { user, dispatch } = useContext(AuthContext);
+  const { logout } = useLogout();
 
   const handleClick = () => {
-    logout()
-  }
+    logout();
+    dispatch({ type: 'LOGOUT' });  // Ensure context state is updated
+  };
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg" className="mb-4">
@@ -24,25 +23,21 @@ const CustomNavbar = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             {user ? (
-            <>
-              <Nav.Link as={Link} to="/user">{user.username}</Nav.Link>
-              <Nav.Link onClick={handleClick}>Logout</Nav.Link>
-            </>
+              <>
+                <Nav.Link as={Link} to="/user">{user.username}</Nav.Link>
+                <Nav.Link onClick={handleClick}>Logout</Nav.Link>
+              </>
             ) : (
-            <>
-              <LinkContainer to="/login">
-                <Nav.Link>Login</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/signup">
-                <Nav.Link>Signup</Nav.Link>
-              </LinkContainer>
-            </>
+              <>
+                <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                <Nav.Link as={Link} to="/signup">Signup</Nav.Link>
+              </>
             )}
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
   );
-}
+};
 
 export default CustomNavbar;

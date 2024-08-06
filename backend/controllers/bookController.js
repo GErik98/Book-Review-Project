@@ -1,4 +1,5 @@
 const Book = require('../models/bookModel')
+const Review = require('../models/reviewModel')
 const mongoose = require('mongoose')
 
 // create a new book
@@ -90,19 +91,24 @@ const updateBook = async (req, res) => {
 
 // delete a book
 const deleteBook = async (req, res) => {
-    const { id } = req.params
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ message: 'Invalid ID' })
+    try {
+      const bookId = req.params.id;
+  
+      // Delete the book
+      const book = await Book.findByIdAndDelete(bookId);
+  
+      if (!book) {
+        return res.status(404).json({ message: 'Book not found' });
+      }
+  
+      // Delete associated reviews
+      await Review.deleteMany({ book: bookId });
+  
+      res.status(200).json({ message: 'Book and associated reviews deleted successfully' });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
     }
-
-    const book = await Book.findOneAndDelete({_id: id})
-
-    if (!book) {
-        return res.status(404).json({ message: 'Book not found' })
-    }
-    res.status(200).json(book)
-}
+  };
 
 
 module.exports = {

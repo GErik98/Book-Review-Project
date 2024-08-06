@@ -36,4 +36,23 @@
         -AuthContext autentikáció kezeléséhez
         -bookDetails törlés csak bejelentkezett adminnál jelenik meg
         -bookDetails clickable kártyák kidolgozása elkezdve
+
+2024.08.05:
+    Backend:
+        -reviewek, rating & average rating működik
+        -bejelentkezett user adatainak lekérdezése
+    Frontend:
+        -Főoldalról könyv card-ra kattintva átirányít egy új oldalra bővített információkkal a könyvekről
+        -review mező és csillagok hozzáadása a részletes könyv oldalhoz
+        -user page user infóhoz
+        -alert üzenet bejelentkezéshez (csak bejelentkezve lehet könyveket hozzáadni)
+        -főoldalon is látszanak a csillagok és az értékelések (review-ek szövege csak a részletes oldalon olvashatóak)
+
+2024.08.06:
+    Backend:
+        -javítva: könyv törlésnél a hozzátartozó review-ek is törlődnek
+        -user update
+    Frontend:
+        -user page username módosítás lehetőséggel
+        -
     

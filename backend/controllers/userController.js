@@ -46,7 +46,7 @@ const signupUser = async (req, res) => {
 // user data
 const getUser = async (req, res) => {
     try {
-      const user = await User.findById(req.user._id).select('-password'); // Exclude password field
+      const user = await User.findById(req.user._id).select('-password')
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
@@ -56,8 +56,28 @@ const getUser = async (req, res) => {
     }
   };
 
+  const updateUser = async (req, res) => {
+    try {
+      // Assuming req.user._id is set by authentication middleware
+      const updatedUser = await User.findByIdAndUpdate(
+        req.user._id,  // Use the ID from the authenticated user
+        { username: req.body.username },  // Update fields based on request body
+        { new: true }  // Return the updated document
+      );
+  
+      if (!updatedUser) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      res.status(200).json(updatedUser);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
 module.exports = {
     loginUser,
     signupUser,
-    getUser
+    getUser,
+    updateUser
 }

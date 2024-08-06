@@ -1,3 +1,4 @@
+import React, { useContext } from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useBooksContext } from '../hooks/useBooksContext';
@@ -11,19 +12,24 @@ const BookDetails = ({ book }) => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    const user = JSON.parse(localStorage.getItem('user'));
     const token = user.token;
 
-    const response = await fetch('/api/books/' + book._id, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    });
-    const json = await response.json();
+    try {
+      const response = await fetch(`/api/books/${book._id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const json = await response.json();
 
-    if (response.ok) {
-      dispatch({ type: 'DELETE_BOOK', payload: json });
+      if (response.ok) {
+        dispatch({ type: 'DELETE_BOOK', payload: book }); // Dispatch the book to be deleted
+      } else {
+        console.error(json.error);
+      }
+    } catch (error) {
+      console.error('Failed to delete book', error);
     }
   };
 
@@ -35,10 +41,10 @@ const BookDetails = ({ book }) => {
           <strong>Author:</strong> {book.author}
         </Card.Text>
         <Card.Text>
-        <strong>Rating:</strong> {book.averageRating.toFixed(1)}
-        <br></br>
+          <strong>Rating:</strong> {book.averageRating.toFixed(1)}
+          <br />
           <StarRatings
-            rating={book.averageRating}  // Pass the average rating value
+            rating={book.averageRating}
             starRatedColor="rgb(230, 67, 47)"
             starHoverColor="rgb(230, 67, 47)"
             starDimension="25px"
