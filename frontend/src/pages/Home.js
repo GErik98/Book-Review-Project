@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { useBooksContext} from '../hooks/useBooksContext'
 import { useAuthContext } from '../hooks/useAuthContext';
-import { Container, Form, Button, Alert, Row, Col } from 'react-bootstrap';
+import { Container, Button, Alert, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 // components
-import BookDetails from '../components/BookDetails'
+import BookDetails from '../components/BookCard'
 import BookForm from '../components/BookForm'
 
 const Home = () => {

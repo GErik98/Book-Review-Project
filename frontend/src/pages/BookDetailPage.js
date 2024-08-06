@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, Button, ListGroup, Form } from 'react-bootstrap';
 import { useAuthContext } from '../hooks/useAuthContext';
@@ -13,7 +13,7 @@ const BookDetailPage = () => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
 
-  const fetchBook = async () => {
+  const fetchBook = useCallback(async () => {
     try {
       const response = await fetch(`/api/books/${id}`, {
         method: 'GET'
@@ -23,7 +23,6 @@ const BookDetailPage = () => {
       if (response.ok) {
         setBook(json);
 
-        // Fetch reviews if book object does not include them
         if (!json.reviews) {
           const reviewsResponse = await fetch(`/api/books/${id}/reviews`, {
             method: 'GET'
@@ -45,11 +44,11 @@ const BookDetailPage = () => {
     } catch (error) {
       console.error('Failed to fetch book', error);
     }
-  };
+  }, [id]); // Include id as a dependency
 
   useEffect(() => {
     fetchBook();
-  }, [id]);
+  }, [fetchBook]); // Use fetchBook in the dependency array
 
   if (!book) {
     return <div>Loading...</div>;
@@ -79,8 +78,16 @@ const BookDetailPage = () => {
 
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
+  
+    // Validate the comment length
+    if (comment.length < 10) {
+      console.error('Comment must be at least 10 characters long.');
+      alert('Comment must be at least 10 characters long.');
+      return;
+    }
+  
     const token = user.token;
-
+  
     try {
       const response = await fetch(`/api/books/${id}/reviews`, {
         method: 'POST',
@@ -91,18 +98,21 @@ const BookDetailPage = () => {
         body: JSON.stringify({ rating, comment, userId: user.id })
       });
       const json = await response.json();
-
+  
       if (response.ok) {
         await fetchBook();
         setRating(0);
         setComment('');
       } else {
         console.error(json.error);
+        alert(json.error || 'Failed to submit review.');
       }
     } catch (error) {
       console.error('Failed to submit review', error);
+      alert('Failed to submit review. Please try again later.');
     }
   };
+  
 
   const changeRating = (newRating) => {
     setRating(newRating);
@@ -125,16 +135,26 @@ const BookDetailPage = () => {
           {formatDistanceToNow(new Date(book.createdAt), { addSuffix: true })}
         </Card.Text>
         <ListGroup className="list-group-flush">
-            {book.reviews && book.reviews.length > 0 ? (
+          {book.reviews && book.reviews.length > 0 ? (
             book.reviews.map((review) => (
-            <ListGroup.Item key={review._id}>
-                <strong>{review.user?.email || 'Unknown User'}:</strong><br></br> {review.comment || 'No comment provided'}
-            </ListGroup.Item>
+              <ListGroup.Item key={review._id}>
+                <strong>{review.user?.email || 'Unknown User'}:</strong><br />
+                <StarRatings
+                  starRatedColor="rgb(230, 67, 47)"
+                  starDimension="20px"
+                  rating={review.rating}
+                  numberOfStars={5}
+                  name='rating'
+                  starSpacing="2px"
+                />
+                <p>{review.comment || 'No comment provided'}</p>
+              </ListGroup.Item>
             ))
-            ) : (
+          ) : (
             <ListGroup.Item>No reviews yet</ListGroup.Item>
-            )}
-         </ListGroup>
+          )}
+        </ListGroup>
+
         {user && user.role === 'admin' && (
           <Button variant="danger" onClick={handleDeleteClick}>Delete</Button>
         )}

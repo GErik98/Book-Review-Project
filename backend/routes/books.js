@@ -13,6 +13,8 @@ const router = express.Router();
  * @openapi
  * /api/books/:
  *   post:
+*     tags:
+*       - Books
  *     summary: Create a new book
  *     description: Adds a new book to the collection.
  *     requestBody:
@@ -22,7 +24,7 @@ const router = express.Router();
  *           schema:
  *             $ref: '#/components/schemas/Book'
  *     responses:
- *       201:
+ *       200:
  *         description: Book created successfully
  *         content:
  *           application/json:
@@ -45,6 +47,8 @@ router.post('/', newBook);
  * @openapi
  * /api/books:
  *   get:
+*     tags:
+*       - Books
  *     summary: Get all books
  *     description: Retrieves a list of all books.
  *     responses:
@@ -63,6 +67,8 @@ router.get('/', getBooks);
  * @openapi
  * /api/books/{id}:
  *   get:
+*     tags:
+*       - Books
  *     summary: Get a book by ID
  *     description: Retrieves a book by its ID.
  *     parameters:
@@ -89,6 +95,17 @@ router.get('/', getBooks);
  *                 error:
  *                   type: string
  *                   example: 'Book not found'
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *          application/json:
+ *             schema:
+ *              type: object
+ *              properties:
+ *                  error:
+ *                      type: string
+ *                      example: 'An unexpected error occures'
+ * 
  */
 router.get('/:id', getBook);
 
@@ -96,6 +113,8 @@ router.get('/:id', getBook);
  * @openapi
  * /api/books/{id}:
  *   patch:
+*     tags:
+*       - Books
  *     summary: Update a book
  *     description: Updates a book's information.
  *     parameters:
@@ -145,6 +164,8 @@ router.patch('/:id', requireAuth('admin'), updateBook);
  * @openapi
  * /api/books/{id}:
  *   delete:
+*     tags:
+*       - Books
  *     summary: Delete a book
  *     description: Deletes a book by ID.
  *     parameters:

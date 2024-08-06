@@ -1,4 +1,3 @@
-// swagger.js
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
@@ -8,11 +7,25 @@ const swaggerDefinition = {
   info: {
     title: 'Book API',
     version: '1.0.0',
-    description: 'A simple API for managing books, reviews and users',
+    description: 'A simple API for managing books',
   },
   servers: [
     {
       url: 'http://localhost:4000', // Change this to your server URL
+    },
+  ],
+  tags: [
+    {
+      name: 'Books',
+      description: 'Operations related to books',
+    },
+    {
+      name: 'Reviews',
+      description: 'Operations related to reviews',
+    },
+    {
+      name: 'Users',
+      description: 'Operations related to users',
     },
   ],
   components: {
@@ -60,26 +73,28 @@ const swaggerDefinition = {
             type: 'number',
             format: 'float',
             description: 'The rating given in the review',
+            minimum: 0,
+            maximum: 5,
           },
           comment: {
             type: 'string',
             description: 'The comment provided in the review',
           },
           user: {
-            type: 'object',
-            properties: {
-              email: {
-                type: 'string',
-                description: 'The email of the user who wrote the review',
-              },
-            },
+            type: 'string',
+            description: 'The ID of the user who wrote the review',
           },
-          bookId: {
+          book: {
             type: 'string',
             description: 'The ID of the book being reviewed',
           },
+          createdAt: {
+            type: 'string',
+            format: 'date-time',
+            description: 'The date and time when the review was created',
+          },
         },
-        required: ['rating', 'comment', 'user', 'bookId'],
+        required: ['rating', 'comment', 'user', 'book'],
       },
       User: {
         type: 'object',
@@ -92,14 +107,25 @@ const swaggerDefinition = {
             type: 'string',
             description: 'The email of the user',
           },
+          password: {
+            type: 'string',
+            description: 'The password of the user',
+          },
           role: {
             type: 'string',
-            description: 'The role of the user (e.g., admin)',
+            description: 'The role of the user (e.g., admin), automatically selected',
           },
         },
-        required: ['email', 'role'],
+        required: ['email', 'password', 'username'],
       },
     },
+    securitySchemes: {
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+    }
   },
 };
 
