@@ -42,19 +42,31 @@ A web application for managing books and user reviews. Users can view book detai
 
 1. **Navigate to the Backend Directory**
    open a new terminal
+
+   ```bash
    cd .\Felveteli_feladat\backend\
 
+   ```
+
 2. **Install Dependencies**
+
+   ```bash
    npm install
+   ```
 
 3. **Set Up Enviroment Variables**
    Crate a '.env' file in the `backend` directory with the following variables:
 
+   ```
+   PORT=4000
    MONGO_URI=mongodb+srv://gacsierik123:eznuEgQSamnBKGvb@book-review-api.fdkdjtx.mongodb.net/?retryWrites=true&w=majority&appName=book-review-api
    SECRET=hafonog48
+   ```
 
 4. **Start the Server**
+   ```bash
    npm run dev
+   ```
 
 ## Usage
 
