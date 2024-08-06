@@ -8,7 +8,7 @@ A web application for managing books and user reviews. Users can view book detai
 - [Usage](#usage)
 - [Project Structure](#project-structure)
 - [API Endpoints](#api-endpoints)
-- [Contributing](#contributing)
+- [Test Accounts](#test-accounts)
 - [License](#license)
 
 ## Installation
@@ -16,7 +16,7 @@ A web application for managing books and user reviews. Users can view book detai
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) (>=14.0.0)
-- [MongoDB](https://www.mongodb.com/try/download/community) (Local or Atlas)
+- [Git](https://git-scm.com/downloads)
 
 ### Frontend Setup
 
@@ -150,3 +150,25 @@ A web application for managing books and user reviews. Users can view book detai
     │
     ├── README.md # Project documentation
     └── ... # Other root files
+
+### Test Accounts
+
+**Admin User:**
+
+- **Email:** admin@admin.net
+- **Password:** Admin123!
+
+## **Regular Users:**
+
+- **Email:** user1@email.net
+- **Password:** User1pw!
+
+---
+
+- **Email:** user2@email.net
+- **Password:** User2pw!
+
+---
+
+- **Email:** user3@email.net
+- **Password:** User3pw!
