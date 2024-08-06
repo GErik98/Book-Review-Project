@@ -60,13 +60,13 @@ A web application for managing books and user reviews. Users can view book detai
 
 ### Navigating the Application
 
-    - Home Page: Displays a list of books. Clicking on the 'Book Reviewer' title of the navbar will redirect to here.
+- Home Page: Displays a list of books. Clicking on the 'Book Reviewer' title of the navbar will redirect to here.
 
-    - Book Detail Page: Shows details of a selected book, including reviews. Clicking on a card of a book will redirect to here.
+- Book Detail Page: Shows details of a selected book, including reviews. Clicking on a card of a book will redirect to here.
 
-    - Submit Review: Authenticated users can submit reviews on book detail pages.
+- Submit Review: Authenticated users can submit reviews on book detail pages.
 
-    - Admin Actions: Admins can delete books from the detail page.
+- Admin Actions: Admins can delete books from the detail page.
 
 ### API Endpoints
 
