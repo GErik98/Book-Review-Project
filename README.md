@@ -112,28 +112,28 @@ A web application for managing books and user reviews. Users can view book detai
 ### Project Structure
 
     .
-    ├── backend/ # Backend Node.js application
-    │ ├── controllers/ # Route controllers
-    │ ├── models/ # Mongoose models
-    │ │ ├── bookModel.js # Book schema
-    │ │ ├── reviewModel.js # Review schema
-    │ │ └── userModel.js # User schema
-    │ ├── routes/ # API routes
-    │ ├── middleware/ # Express middleware
-    │ ├── server.js # Main server file
-    │ ├── package.json # Backend dependencies
-    │ ├── swagger.js # Swagger documentation
+    ├── backend/            # Backend Node.js application
+    │ ├── controllers/      # Route controllers
+    │ ├── models/           # Mongoose models
+    │ │ ├── bookModel.js    # Book schema
+    │ │ ├── reviewModel.js  # Review schema
+    │ │ └── userModel.js    # User schema
+    │ ├── routes/           # API routes
+    │ ├── middleware/       # Express middleware
+    │ ├── server.js         # Main server file
+    │ ├── package.json      # Backend dependencies
+    │ ├── swagger.js        # Swagger documentation
     │ └── ... # Other backend files
     │
-    ├── frontend/ # Frontend React application
-    │ ├── public/ # Public files
-    │ ├── src/ # Source files
-    │ │ ├── components/ # Reusable components
-    │ │ ├── hooks/ # Custom hooks
-    │ │ ├── pages/ # Application pages
-    │ │ ├── App.js # Main App component
-    │ │ └── index.js # Entry point
-    │ ├── package.json # Frontend dependencies
+    ├── frontend/           # Frontend React application
+    │ ├── public/           # Public files
+    │ ├── src/              # Source files
+    ├── components/         # Reusable components
+    │ │ ├── hooks/          # Custom hooks
+    │ │ ├── pages/          # Application pages
+    │ │ ├── App.js          # Main App component
+    │ │ └── index.js        # Entry point
+    │ ├── package.json      # Frontend dependencies
     │ └── ... # Other frontend files
     │
     ├── README.md # Project documentation
